@@ -1,12 +1,17 @@
 @font-face {
   font-family: 'Poppins';
-  src: url('./assets/fonts/Poppins/Poppins-Regular.ttf'),
-        url('./assets/fonts/Lobster/Lobster-Regular.ttf');
+  src: url('./assets/fonts/Poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Lobster';
   src: url('./assets/fonts/Lobster/Lobster-Regular.ttf');
+}
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
