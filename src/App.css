@@ -42,3 +42,18 @@ ul, ol {
   padding: 0;
   list-style: none
 }
+
+.primary-btn {
+  font-size: 20px;
+  color: #fff;
+  background-color: #D10024;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  color: #D10024;
+  background-color: #fff;
+}
