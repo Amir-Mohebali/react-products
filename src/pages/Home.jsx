@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom'
+import Item from '../components/Item'
 
 import Tv01 from '../assets/images/tv01.png'
-import Tv02 from '../assets/images/tv02.png'
-import Tv03 from '../assets/images/tv03_1.png'
-import Tv04 from '../assets/images/tv04_1.png'
-import Tv05 from '../assets/images/tv05_1.png'
 import './home.css'
 
 const categories = document.getElementsByClassName("items");
 const tablinks = document.getElementsByClassName("tablink");
 
-const Home = () => {
+const Home = ({ items }) => {
 
   const openProductCategory = (event, category) => {
       for (let i = 0; i < categories.length; i++) {
@@ -53,7 +50,7 @@ const Home = () => {
             </div>
         </div>
         <div className="products">
-            <h1 className="products-title">Our Products</h1>
+            <h2 className="title">Our Products</h2>
             <div className="products-container">
                 <div className="bar">
                     <button className="tablink active" onClick={(e)=> openProductCategory(e,'Phones')}>Phones</button>
@@ -61,33 +58,23 @@ const Home = () => {
                     <button className="tablink" onClick={(e)=> openProductCategory(e,'TVs')}>TVs</button>
                   </div>
                 <div id="Phones" className="items active">
-                    <div className="item-box">
-                        <div className="item-image">
-                            <img src={Tv02} alt="" />
-                            <div className="labels">
-                                <span className="new">new</span>
-                                <span className="percent">30%</span>
-                            </div>
-                        </div>
-                        <div className="item-body">
-                            <span className="brand">SAMSUNG</span>
-                            <h3 className="name">77" S95D OLED 4K Smart TV</h3>
-                        </div>
-                        <div className="item-price">
-                                <div>
-                                    <span className='final-price'>$1,599</span>
-                                    <span className='old-price'><del>$2,284</del></span>
-                                </div>
-                                <Link className='primary-btn'>Buy</Link>
-                        </div>
-                    </div>
+                    {items
+                        .filter(item => item.Cat === 'phone')
+                        .map(item => <Item data={item} />)
+                    }
                 </div>
                 <div id="Laptops" className="items">
-                
+                    {items
+                        .filter(item => item.Cat === 'laptop')
+                        .map(item => <Item data={item} />)
+                    }
                 </div>
                 
                 <div id="TVs" className="items">
-                    
+                    {items
+                        .filter(item => item.Cat === 'tv')
+                        .map(item => <Item data={item} />)
+                    }
                 </div>
             </div>
         </div>

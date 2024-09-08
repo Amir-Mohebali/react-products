@@ -43,6 +43,32 @@ ul, ol {
   list-style: none
 }
 
+.container {
+  max-width: 1440px;
+  margin: 83px auto 0px;
+}
+
+h2.title {
+  padding: 32px 24px 12px;
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+  border-bottom: 2px solid #ccc;
+  position: relative;
+}
+
+h2.title::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 3px;
+  background-color: #D10024;
+}
+
 .primary-btn {
   font-size: 20px;
   color: #fff;
