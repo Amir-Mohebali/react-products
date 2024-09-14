@@ -16,15 +16,15 @@ const Header = () => {
                 <div className="underline"></div>
             </li>
             <li>
-                <NavLink to='/products/phones'>Phones</NavLink>
+                <NavLink to='/products/phone'>Phones</NavLink>
                 <div className="underline"></div>
             </li>
             <li>
-                <NavLink to='/products/laptops'>Laptops</NavLink>
+                <NavLink to='/products/laptop'>Laptops</NavLink>
                 <div className="underline"></div>
             </li>
             <li>
-                <NavLink to='/products/tvs'>TVs</NavLink>
+                <NavLink to='/products/tv'>TVs</NavLink>
                 <div className="underline"></div>
             </li>
         </ul>

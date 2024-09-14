@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import ProductList from './pages/ProductList'
 import Home from './pages/Home'
 import { data } from './utilities/products'
 
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home items={products}/>}/>
+        <Route path='/products/:cat' element={<ProductList items={products}/>} />
       </Routes>
       <Footer />
     </>
