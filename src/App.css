@@ -69,12 +69,15 @@ h2.title::after {
   background-color: #D10024;
 }
 
-.primary-btn {
+.primary-btn,
+.secondary-btn {
   font-size: 20px;
+  font-weight: 700;
   color: #fff;
   background-color: #D10024;
   padding: 8px 16px;
-  border: 2px solid transparent;
+  padding: 12px 36px;
+  border: 3px solid transparent;
   border-radius: 30px;
   transition: 0.3s;
 }
@@ -82,4 +85,10 @@ h2.title::after {
 .primary-btn:hover {
   color: #D10024;
   background-color: #fff;
+}
+
+.secondary-btn:hover {
+  color: #D10024;
+  background-color: #fff;
+  border-color: #D10024;
 }

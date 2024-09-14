@@ -2,16 +2,22 @@ import { Link } from 'react-router-dom'
 import './item.css'
 
 const Item = ({ data }) => {
-  const { Brand, Model, images } = data;
+  const { Cat, id, Brand, Model, price, discount, isNew, images } = data;
   const ImagePath = '../../src/assets/images/';
   
+  const showPrice = (number) => {
+    return Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return (
     <div className="item-box">
         <div className="item-image">
-            <img src={`${ImagePath}${images[0]}`} alt="" />
+            <Link to={`/products/${Cat}/${id}`}>
+                <img src={`${ImagePath}${images[0]}`} alt="" />
+            </Link>
             <div className="labels">
-                <span className="new">new</span>
-                <span className="percent">30%</span>
+                {isNew ? <span className="new">new</span> : null}
+                {discount ? <span className="percent">{`${discount}%`}</span> : null}
             </div>
         </div>
         <div>
@@ -21,8 +27,8 @@ const Item = ({ data }) => {
             </div>
             <div className="item-price">
                 <div>
-                    <span className='final-price'>$1,599</span>
-                    <span className='old-price'><del>$2,284</del></span>
+                    <span className='final-price'>{discount ? `$${showPrice(price*(1-discount/100))}` : `$${showPrice(price)}`}</span>
+                    {discount ? <span className='old-price'><del>{`$${showPrice(price)}`}</del></span> : null}
                 </div>
                 <Link className='primary-btn'>Buy</Link>
             </div>
