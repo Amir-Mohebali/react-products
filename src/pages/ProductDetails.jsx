@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom"
 import { useState } from "react"
+import CustomCheckBox from "../components/CustomCheckBox";
 
 import { FaStar } from "react-icons/fa";
 import './productDetails.css'
@@ -9,7 +10,7 @@ const tabLinks = document.getElementsByClassName("tab-link");
 
 const ProductDetails = ({ items, category }) => {
   const { productId } = useParams();
-  const ImagePath = '../../src/assets/images/';
+  const ImagePath = '../../src/assets/images';
   
   const currentProduct = items.find(item => item.Cat === category && item.id === productId);
   const specs = Object.keys(currentProduct['Specs'])
@@ -55,6 +56,7 @@ const ProductDetails = ({ items, category }) => {
         </div>
         <div className="product-details">
           <h2>{currentProduct['Brand']} {currentProduct['Model']}</h2>
+          {currentProduct['Options'] && <CustomCheckBox options={currentProduct['Options']}/>}
             {specs.map((spec) => {
               return (
                 <div className="detail">
@@ -71,7 +73,7 @@ const ProductDetails = ({ items, category }) => {
                   : `$${currentProduct['price']}`
                 }
               </span>
-              {currentProduct['discount'] ? <span className='main-price'><del>{`$${showPrice(currentProduct['price'])}`}</del></span> : null}
+              {currentProduct['discount'] ? <span className='main-price'><del>{`$${currentProduct['price']}`}</del></span> : null}
             </div>
             <Link className='secondary-btn'>Add to Cart</Link>
         </div>
@@ -194,12 +196,12 @@ const ProductDetails = ({ items, category }) => {
                   </div>
                 </div>
                 <p className="review-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                    nulla pariatur.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+                  enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+                  nulla pariatur.
                 </p>
               </div>
               <div className="review">
@@ -214,12 +216,12 @@ const ProductDetails = ({ items, category }) => {
                   </div>
                 </div>
                 <p className="review-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                    nulla pariatur.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+                  enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+                  nulla pariatur.
                 </p>
               </div>
               <div className="review">
@@ -234,12 +236,12 @@ const ProductDetails = ({ items, category }) => {
                   </div>
                 </div>
                 <p className="review-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                    nulla pariatur.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+                  enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat 
+                  nulla pariatur.
                 </p>
               </div>
             </div>
