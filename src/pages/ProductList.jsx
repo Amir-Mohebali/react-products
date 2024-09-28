@@ -1,17 +1,27 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Item from '../components/Item'
 import './productList.css'
 
-const ProductList = ({ items }) => {
+const ProductList = () => {
     const { cat } = useParams()
+    const [data, setData] = useState()
+    const [error, setError] = useState('')
 
+    useEffect(()=> {
+        fetch(`http://localhost:8000/products?Cat=${cat}`)
+          .then((res) => {return res.json()})
+          .then((resp) => setData(resp))
+          .catch((err) => setError(err))
+    }, [cat])
+    
     return (
         <div className="container">
             <h2 className="title">Our Latest {cat}s</h2>
             <div className="items">
-                {items
-                    .filter(item => item.Cat === cat)
-                    .map(item => <Item data={item} />)
+                {data
+                ? data.map(item => <Item data={item} />)
+                : <h3>{error}</h3>
                 }
             </div>
         </div>

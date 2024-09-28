@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Item from '../components/Item'
 
@@ -7,7 +8,16 @@ import './home.css'
 const categories = document.getElementsByClassName("items");
 const tablinks = document.getElementsByClassName("tablink");
 
-const Home = ({ items }) => {
+const Home = () => {
+  const [data, setData] = useState()
+  const [error, setError] = useState('')
+
+  useEffect(()=> {
+    fetch("http://localhost:8000/products")
+      .then((res) => {return res.json()})
+      .then((resp) => setData(resp))
+      .catch((err) => setError(err))
+  }, [])
 
   const openProductCategory = (event, category) => {
       for (let i = 0; i < categories.length; i++) {
@@ -56,25 +66,33 @@ const Home = ({ items }) => {
                     <button className="tablink active" onClick={(e)=> openProductCategory(e,'Phones')}>Phones</button>
                     <button className="tablink" onClick={(e)=> openProductCategory(e,'Laptops')}>Laptops</button>
                     <button className="tablink" onClick={(e)=> openProductCategory(e,'TVs')}>TVs</button>
-                  </div>
+                </div>
                 <div id="Phones" className="items active">
-                    {items
+                  {data && console.log(data)}
+                  {data 
+                    ? data
                         .filter(item => item.Cat === 'phone')
                         .map(item => <Item data={item} />)
-                    }
+                    : <h3>{error}</h3>
+                  }
                 </div>
+
                 <div id="Laptops" className="items">
-                    {items
+                  {data 
+                    ? data
                         .filter(item => item.Cat === 'laptop')
                         .map(item => <Item data={item} />)
-                    }
+                    : <h3>{error}</h3>
+                  }
                 </div>
                 
                 <div id="TVs" className="items">
-                    {items
+                  {data 
+                    ? data
                         .filter(item => item.Cat === 'tv')
                         .map(item => <Item data={item} />)
-                    }
+                    : <h3>{error}</h3>
+                  }
                 </div>
             </div>
         </div>
