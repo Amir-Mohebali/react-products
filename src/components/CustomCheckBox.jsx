@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './customCheckBox.css'
 
-const CustomCheckBox = ({options}) => {
+const CustomCheckBox = ({options, changePrice, changeOptions}) => {
     
     const optionList = Object.keys(options)
 
@@ -12,12 +12,19 @@ const CustomCheckBox = ({options}) => {
         })
     }, [])
     
-    const handleOnChange = (event, optionType) => {
+    const handleOnChange = (event, optionType, optionValue) => {
         const group = document.getElementsByName(optionType);
         for(let item of group) {
             item.checked = false
         }
         event.currentTarget.checked = true
+
+        changeOptions(optionType, optionValue)
+
+        if(optionType !== "Color") {
+            const extraCost = parseInt(event.currentTarget.value);
+            changePrice(extraCost);
+        }
     }
 
     return (
@@ -34,14 +41,14 @@ const CustomCheckBox = ({options}) => {
                                             type="checkbox" 
                                             class="checkbox" 
                                             name={option}
-                                            value={opt}
-                                            onChange={(e)=> handleOnChange(e, option)}
+                                            value={option==="Color" ? Object.keys(opt) : opt[Object.keys(opt)]}
+                                            onChange={(e)=> handleOnChange(e, option, Object.keys(opt))}
                                         />
                                         <span className="checkmark"></span>
                                         {
                                             option==="Color" 
-                                            ? <span className="option-value" style={{background: `${opt}`, backgroundClip: 'content-box'}}></span> 
-                                            : <span className="option-value">{opt}</span>
+                                            ? <span className="option-value" style={{background: `${opt[Object.keys(opt)]}`, backgroundClip: 'content-box'}}></span> 
+                                            : <span className="option-value">{Object.keys(opt)}</span>
                                         }
                                     </label>
                                 // (/^#[0-9a-fA-F]{3,6}/).test(opt) ? <span style={{background: `${opt}`, backgroundClip: 'content-box'}}></span> : <span>{opt}</span>

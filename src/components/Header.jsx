@@ -1,8 +1,11 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { FaSearch, FaShoppingCart } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import './header.css'
 
 const Header = () => {
+  const cart = useSelector((state) => state.cart)
+
   return (
     <div className='nav'>
         <NavLink to='/'>
@@ -32,10 +35,10 @@ const Header = () => {
             <div className="search-btn">
                 <FaSearch />
             </div>
-            <div className="cart-btn">
+            <Link to='/cart' className="cart-btn">
                 <FaShoppingCart/>
-                <div className="qty">0</div>
-            </div>
+                <div to='/cart' className="qty">{cart.length}</div>
+            </Link>
         </div>
     </div>
   )

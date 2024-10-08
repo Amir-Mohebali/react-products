@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import CustomCheckBox from "../components/CustomCheckBox";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/CartSlice";
 
 import { FaStar } from "react-icons/fa";
 import './productDetails.css'
@@ -12,12 +14,26 @@ const ProductDetails = ({ category }) => {
   const { productId } = useParams();
   const [data, setData] = useState()
   const [error, setError] = useState('')
+
+  const productOptions = useRef({});
+  const [basePrice, setBasePrice] = useState(0)
   const ImagePath = '../../src/assets/images';
   
+  const dispatch = useDispatch()
+
   useEffect(()=> {
     fetch(`http://localhost:8000/products?Cat=${category}&id=${productId}`)
       .then((res) => {return res.json()})
-      .then((resp) => setData(resp[0]))
+      .then((resp) => {
+        setData(resp[0])
+        setBasePrice(resp[0].price)
+        Object.keys(resp[0]["Options"]).map((opt) => {
+          productOptions.current = {
+            ...productOptions.current,
+            [opt.toString()]: Object.keys(resp[0]["Options"][opt][0])
+          }
+        })
+      })
       .catch((err) => setError(err))
   }, [category, productId])
 
@@ -37,6 +53,28 @@ const ProductDetails = ({ category }) => {
 
   const showPrice = (number) => {
     return Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const updatePrice = (price) => {
+    setData({...data, price: basePrice + price})
+  }
+
+  const updateOptions = (optionType, optionValue) => {
+    productOptions.current = {
+      ...productOptions.current,
+      [optionType] : optionValue 
+    }
+  }
+
+  const addToCart = () => {
+    let feature = Object.keys(data["Specs"])
+
+    productOptions.current = data["Options"] 
+    ? productOptions.current
+    : {...productOptions.current,
+      [feature[0].toString()]: data["Specs"][feature[0]]}
+
+    dispatch(addProduct({...data, feature: productOptions.current, quantity: 1}))    
   }
 
   return (
@@ -63,7 +101,13 @@ const ProductDetails = ({ category }) => {
             </div>
             <div className="product-details">
               <h2>{data['Brand']} {data['Model']}</h2>
-              {data['Options'] && <CustomCheckBox options={data['Options']}/>}
+              {data['Options'] && 
+                <CustomCheckBox 
+                  options={data['Options']} 
+                  changePrice={(price) => updatePrice(price)}
+                  changeOptions={(optionType, optionValue) => updateOptions(optionType, optionValue)}
+                />
+              }
               {Object.keys(data['Specs']).map((spec) => {
                 return (
                   <div className="detail">
@@ -82,7 +126,7 @@ const ProductDetails = ({ category }) => {
                 </span>
                 {data['discount'] ? <span className='main-price'><del>{`$${data['price']}`}</del></span> : null}
               </div>
-              <Link className='secondary-btn'>Add to Cart</Link>
+              <button className='secondary-btn' onClick={addToCart}>Add to Cart</button>
             </div> 
             <div className="product-description">
           <div className="bar">

@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import ProductList from './pages/ProductList'
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
 
 import './App.css'
 
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='/cart' element={<Cart/>} />
         <Route path='/products/:cat' element={<ProductList/>} />
         <Route path='/products/tv/:productId' element={<ProductDetails category="tv"/>} />
         <Route path='/products/phone/:productId' element={<ProductDetails category="phone"/>} />

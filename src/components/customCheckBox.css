@@ -1,3 +1,4 @@
+
 .option {
     display: flex;
     gap: 12px;
@@ -42,13 +43,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
-    height: 32px;
+    width: 72px;
+    height: 36px;
     color: #8D99AE;
     border: 1px solid #8D99AE;
     border-radius: 6px;
     padding: 2px;
-    font-size: 14px;
+    /* background: rebeccapurple; */
     background-clip: content-box;
 }
 
